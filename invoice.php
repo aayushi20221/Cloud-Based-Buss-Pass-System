@@ -1,3 +1,15 @@
+<?php
+	include('connection.php');
+	if(isset($_POST['id'])){
+		$id = $_POST['id'];
+        $amt = $_POST['amt'];
+		
+        $paid = mysql_query("UPDATE pass SET paid = '$amt' WHERE id = '$id'");
+		
+		$result = mysql_query("select * from pass where id = '$id'");
+		$row = mysql_fetch_array($result);
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -24,6 +36,17 @@
     <link rel="stylesheet" href="css/aos.css">
 
     <link rel="stylesheet" href="css/style.css">
+	
+	<style>
+	@media print {
+	  #printPageButton {
+		display: none;
+	  }
+	  footer{
+		display: none;
+	  }
+	}
+	</style>
     
   </head>
   <body>
@@ -74,41 +97,50 @@
             
             <div class="p-4 mb-3 bg-white">
                 
-              <p class="mb-0 font-weight-bold">Name</p>
+              <p class="mb-0 font-weight-bold" style="float: left;">Name &nbsp &nbsp</p>
                 <p class="mb-4">
-                    
+                    <?php
+						echo $row['name'];
+					?>
                 </p>
 
-              <p class="mb-0 font-weight-bold">Mobile</p>
+              <p class="mb-0 font-weight-bold" style="float: left;">Mobile &nbsp &nbsp</p>
               <p class="mb-4">
-                
+					<?php
+						echo $row['contact'];
+					?>
                 </p>
 
-              <p class="mb-0 font-weight-bold">Email Address</p>
+              <p class="mb-0 font-weight-bold" style="float: left;">Email Address &nbsp &nbsp</p>
               <p class="mb-4">
-                
+					<?php
+						echo $row['email'];
+					?>
                 </p>
                 
-                <p class="mb-0 font-weight-bold">Valid Till</p>
+                <p class="mb-0 font-weight-bold" style="float: left;">Valid Till &nbsp &nbsp</p>
               <p class="mb-4">
-                
+					<?php
+						echo $row['date'];
+					?>
                 </p>
                 
-                <p class="mb-0 font-weight-bold">From - To</p>
+                <p class="mb-0 font-weight-bold" style="float: left;">From - To &nbsp &nbsp</p>
               <p class="mb-4">
                 GLA University - 
+				<?php
+						echo $row['dest'];
+					?>
                 </p>
                 
-                <p class="mb-0 font-weight-bold">Number of Journeys</p>
+                
+                <p class="mb-0 font-weight-bold" style="float: left;">Amount Paid &nbsp &nbsp</p>
               <p class="mb-4">
-                
+					<?php
+						echo $row['paid'];
+					?>
                 </p>
-                
-                <p class="mb-0 font-weight-bold">Amount Paid</p>
-              <p class="mb-4">
-                
-                </p>
-
+<button id="printPageButton" onclick="window.print()">Print Pass</button>
             </div>
             
             </div>
@@ -116,8 +148,7 @@
       </div>
     </div>
 
-    
-    <footer class="site-footer">
+        <footer class="site-footer">
       <div class="container">
         <div class="row">
           <div class="col-lg-4">
@@ -160,6 +191,7 @@
         </div>
       </div>
     </footer>
+    
   </div>
 
   <script src="js/jquery-3.3.1.min.js"></script>
