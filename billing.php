@@ -7,8 +7,9 @@
         $contact = $_POST['contact'];
         $date = $_POST['date'];
         $dest = $_POST['dest'];
+        $password = $_POST['password'];
      	
-        $query = mysql_query("insert into pass(name, email, contact, date, dest) values ('$name', '$email', '$contact', '$date', '$dest')");
+        $query = mysql_query("insert into pass(name, email, contact, date, dest, password) values ('$name', '$email', '$contact', '$date', '$dest', '$password')");
 		$lid = mysql_insert_id();
 		
 		$nod = round((strtotime($date) - time())/(60*60*24))+1;

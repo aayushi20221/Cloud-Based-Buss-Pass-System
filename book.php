@@ -122,6 +122,14 @@
               <div class="row form-group">
                 
                 <div class="col-md-12">
+                  <label class="text-black" for="Number">Enter your Password</label> 
+                  <input required name="password" type="password" class="form-control">
+                </div>
+              </div>
+
+              <div class="row form-group">
+                
+                <div class="col-md-12">
                   <label class="text-black" for="Date">Valid Till</label> 
                   <input required name="date" type="date" id="date" class="form-control">
                 </div>

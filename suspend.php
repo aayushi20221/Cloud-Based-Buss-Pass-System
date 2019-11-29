@@ -9,7 +9,34 @@
 	}
 ?>
 
-<div>
+<head>
+    <title>Cloud Based Bus Pass System</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,700,900|Display+Playfair:200,300,400,700"> 
+    <link rel="stylesheet" href="fonts/icomoon/style.css">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/magnific-popup.css">
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+
+    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+
+    <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mediaelement@4.2.7/build/mediaelementplayer.min.css">
+
+
+    <link rel="stylesheet" href="css/aos.css">
+
+    <link rel="stylesheet" href="css/style.css">
+    
+  </head>
+
+<div style="padding-block: 50px; margin-left:50px;">
 Refund has been initiated and 
 
 Rs. 
@@ -22,3 +49,9 @@ Rs.
 	mysql_query("UPDATE pass SET date = CURDATE() WHERE id = '$id'");
 ?> will be Credited to your account in 3-4 working days.
 </div>
+
+<form action="index.html">
+
+    <input type="submit"class="btn btn-primary py-1 px-5 text-white" style="width: 200px; margin-left: 50px" value="Home">
+    
+</form>

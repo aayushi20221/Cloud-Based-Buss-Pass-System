@@ -122,6 +122,8 @@
             PASSWORD: <input type="password" id="pass_id" style="height:35px;" name="password" required> <input type="submit" class="btn btn-primary py-1 px-5 text-white" value="Search">
         </form>
               </left>
+              
+              <p style="color: red; margin-left: 100px;">*Incorrect Id / Password</p>
         <br/>
         <div class="pass_body">
                 <div class="site-section bg-light">
