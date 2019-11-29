@@ -1,19 +1,20 @@
 <?php
-	include('connection.php');
-	if(isset($_POST['id'])){
-		$id = $_POST['id'];
-        $amt = $_POST['amt'];
-		
-        $paid = mysql_query("UPDATE pass SET paid = paid + '$amt' WHERE id = '$id'");
-		
-		$result = mysql_query("select * from pass where id = '$id'");
+    include("connection.php");
+    if(isset($_POST['pass_id'])){
+        $id = $_POST['pass_id'];
+        $result = mysql_query("select * from pass where id = '$id'");
 		$row = mysql_fetch_array($result);
+        $body="initial";
+    } else {
+        $id="";
+        $body="none";
     }
 ?>
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Cloud Based Bus Pass System</title>
+
+<html>
+    <head>
+        
+            <title>Cloud Based Bus Pass System</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -36,22 +37,27 @@
     <link rel="stylesheet" href="css/aos.css">
 
     <link rel="stylesheet" href="css/style.css">
-	
-	<style>
+
+        
+        <style>
+            .pass_body{
+                display: <?php echo $body; ?>;
+            }
+            
+     
 	@media print {
-	  #printPageButton {
+	  .print {
 		display: none;
 	  }
 	  footer{
 		display: none;
 	  }
 	}
-	</style>
-    
-  </head>
-  <body>
-  
-  <div class="site-wrap">
+            
+        </style>
+    </head>
+    <body>
+          <div class="site-wrap">
 
     <div class="site-mobile-menu">
       <div class="site-mobile-menu-header">
@@ -88,23 +94,44 @@
       </div>
       
     </header>
-      
-         
-    <div class="site-section bg-light">
+              
+              
+              <div class="site-blocks-cover inner-page-cover" style="background-image: url(images/hero_bg_2.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
+        <div class="container">
+          <div class="row align-items-center justify-content-center text-center">
+
+            <div class="col-md-8" data-aos="fade-up" data-aos-delay="400">
+              <h1 class="text-white font-weight-light">Manage Pass</h1>
+              <div><a href="index.html">Home</a> <span class="mx-2 text-white">&bullet;</span> <span class="text-white">Mange Pass</span></div>
+              
+            </div>
+          </div>
+        </div>
+      </div>  
+
+
+        <left>
+            <form class="print" action="manage.php" method="post" style="margin-top:75px; margin-left: 75px">
+            ID: <input type="text" id="pass_id" style="height:35px;" name="pass_id" value="<?php echo $id; ?>" required> <input type="submit" class="btn btn-primary py-1 px-5 text-white" value="Search">
+        </form>
+              </left>
+        <br/>
+        <div class="pass_body">
+                <div class="site-section bg-light">
       <div class="container">
         <div class="row">
           <div class="col-md-12">
             
             <div class="p-4 mb-3 bg-white">
-                
-              <p class="mb-0 font-weight-bold" style="float: left;">Id &nbsp &nbsp</p>
+              
+                <p class="mb-0 font-weight-bold" style="float: left;">Id &nbsp &nbsp</p>
                 <p class="mb-4">
                     <?php
 						echo $row['id'];
 					?>
                 </p>
                 
-                <p class="mb-0 font-weight-bold" style="float: left;">Name &nbsp &nbsp</p>
+              <p class="mb-0 font-weight-bold" style="float: left;">Name &nbsp &nbsp</p>
                 <p class="mb-4">
                     <?php
 						echo $row['name'];
@@ -147,7 +174,21 @@
 						echo $row['paid'];
 					?>
                 </p>
-<button id="printPageButton" class="btn btn-primary py-1 px-5 text-white" onclick="window.print()">Print Pass</button>
+
+<form class="print" action="renew.php" method="post">
+<input type="hidden" name="id" value="<?php echo $id; ?>">
+<input type="date" style="margin-right: 75px; width:200px; height:35px" min="<?php echo $row['date']; ?>" required name="new_date">
+<input type="submit" class="btn btn-primary py-1 px-5 text-white" style="width: 200px" value="Renew Pass">
+</form>
+
+<form class="print" action="suspend.php" method="post">
+<input type="hidden" name="id" value="<?php echo $id; ?>">
+<input type="submit" style="width: 200px" class="btn btn-primary py-1 px-5 text-white" value="Suspend Pass">
+</form>
+
+
+<button class="print btn btn-primary py-1 px-5 text-white" style="width: 200px" onclick="window.print()">Print Pass</button>
+
             </div>
             
             </div>
@@ -155,13 +196,15 @@
       </div>
     </div>
 
-        <footer class="site-footer">
+        </div>
+              
+                      <footer class="site-footer">
       <div class="container">
         <div class="row">
           <div class="col-lg-4">
             <div class="mb-5">
               <h3 class="footer-heading mb-4">About Travelers</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe pariatur reprehenderit vero atque, consequatur id ratione, et non dignissimos culpa? Ut veritatis, quos illum totam quis blanditiis, minima minus odio!</p>
+              <p>Provides student a pass for their daily life to travel to/from GLA University, Mathura</p>
             </div>
 
             
@@ -214,6 +257,6 @@
   <script src="js/aos.js"></script>
 
   <script src="js/main.js"></script>
-    
-  </body>
+
+    </body>
 </html>

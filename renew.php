@@ -1,20 +1,17 @@
 <?php
-    include('connection.php');
+    include("connection.php");
 	date_default_timezone_set("Asia/Kolkata");
-    if(isset($_POST['name'])){
-        $name = $_POST['name'];
-        $email = $_POST['email'];
-        $contact = $_POST['contact'];
-        $date = $_POST['date'];
-        $dest = $_POST['dest'];
-     	
-        $query = mysql_query("insert into pass(name, email, contact, date, dest) values ('$name', '$email', '$contact', '$date', '$dest')");
-		$lid = mysql_insert_id();
+    if(isset($_POST['id'])){
+        $id = $_POST['id'];
+		$new_date = $_POST['new_date'];
+        $result = mysql_query("select * from pass where id = '$id'");
+		$row = mysql_fetch_array($result);
 		
-		$nod = round((strtotime($date) - time())/(60*60*24))+1;
-		$result = mysql_query("select price from destination where name = '$dest'");
-    }
+		mysql_query("UPDATE pass SET date = '$new_date' WHERE id = '$id'");
+		$nod = round((strtotime($new_date) - strtotime($row['date']))/(60*60*24))+1;
+	}
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -74,7 +71,8 @@
                 </li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="contact.html">Contact</a></li>
-                <li><a href="manage.php">Manage Pass</a></li>
+                  <li><a href="manage.php">Manage Pass</a></li>
+                <!-- <li><a href="booking.html">Book Online</a></li> -->
               </ul>
             </nav>
           </div>
@@ -188,7 +186,7 @@ span.price {
 
             <div class="col-md-8" data-aos="fade-up" data-aos-delay="400">
               <h1 class="text-white font-weight-light">Book Your Pass</h1>
-              <div><a href="index.html">Home</a> <span class="mx-2 text-white">&bullet;</span> <span class="text-white">Payment</span></div>
+              <div><a href="index.html">Home</a> <span class="mx-2 text-white">&bullet;</span> <span class="text-white">Pass</span></div>
               
             </div>
           </div>
@@ -213,32 +211,33 @@ span.price {
               <i class="fa fa-cc-discover" style="color:orange;"></i>
 			  <div>Rs. 
 				<?php
-					$price = mysql_fetch_assoc($result)['price'];
+					$dest = $row['dest'];
+					$price = mysql_fetch_assoc(mysql_query("select price from destination where name = '$dest'"))['price'];
 					$amt = $price * $nod;
 					echo $amt;
 				?>
 			  </div>
             </div>
-			<input type="hidden" value="<?php echo $lid ?>" name="id">
+			<input type="hidden" value="<?php echo $id ?>" name="id">
 			<input type="hidden" value="<?php echo $amt ?>" name="amt">
             <label for="cname">Name on Card</label>
-            <input type="text" id="cname" name="cardname" value="<?php echo $name; ?>" required>
+            <input type="text" id="cname" name="cardname" value="<?php echo $row['name']; ?>">
             <label for="ccnum">Card number</label>
-            <input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444" required>
+            <input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444">
 
             <div class="row">
               <div class="col-50">
                 <label for="expyear">Exp Year</label>
-                <input type="text" id="expyear" name="expyear" placeholder="YYYY" required>
+                <input type="text" id="expyear" name="expyear" placeholder="YYYY">
               </div>
                 
                 <div class="col-50">
                 <label for="expmonth">Exp Month</label>
-            <input type="text" id="expmonth" name="expmonth" placeholder="MM" required>
+            <input type="text" id="expmonth" name="expmonth" placeholder="MM">
                 </div>
               </div>
               <label for="cvv">CVV</label>
-                <input type="password" id="cvv" name="cvv" placeholder="***" required>
+                <input type="password" id="cvv" name="cvv" placeholder="***">
           </div>
 
         </div>
