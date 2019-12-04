@@ -1,3 +1,22 @@
+<?php
+    include('connection.php');
+	date_default_timezone_set("Asia/Kolkata");
+    if(isset($_POST['name'])){
+        $name = $_POST['name'];
+        $email = $_POST['email'];
+        $contact = $_POST['contact'];
+        $date = $_POST['date'];
+        $dest = $_POST['dest'];
+        $password = $_POST['password'];
+     	
+        $query = mysql_query("insert into pass(name, email, contact, date, dest, password) values ('$name', '$email', '$contact', '$date', '$dest', '$password')");
+		$lid = mysql_insert_id();
+		
+		$nod = round((strtotime($date) - time())/(60*60*24))+1;
+		$result = mysql_query("select price from destination where name = '$dest'");
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -65,14 +84,112 @@
       </div>
       
     </header>
+<style>
+      
+    .row {
+  display: -ms-flexbox; /* IE10 */
+  display: flex;
+  -ms-flex-wrap: wrap; /* IE10 */
+  flex-wrap: wrap;
+  margin: 0 -16px;
+}
+
+.col-25 {
+  -ms-flex: 25%; /* IE10 */
+  flex: 25%;
+}
+
+.col-50 {
+  -ms-flex: 50%; /* IE10 */
+  flex: 50%;
+}
+
+.col-75 {
+  -ms-flex: 75%; /* IE10 */
+  flex: 75%;
+}
+
+.col-25,
+.col-50,
+.col-75 {
+  padding: 0 16px;
+}
+
+.container {
+  padding: 5px 20px 15px 20px;
+  border-radius: 3px;
+}
+
+input[type=text] {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+    
+    input[type=password] {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+label {
+  margin-bottom: 10px;
+  display: block;
+}
+
+.icon-container {
+  margin-bottom: 20px;
+  padding: 7px 0;
+  font-size: 24px;
+}
+
+.btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px;
+  margin: 10px 0;
+  border: none;
+  width: 100%;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 17px;
+}
+
+.btn:hover {
+  background-color: #45a049;
+}
+
+span.price {
+  float: right;
+  color: grey;
+}
+
+/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other (and change the direction - make the "cart" column go on top) */
+@media (max-width: 800px) {
+  .row {
+    flex-direction: column-reverse;
+  }
+  .col-25 {
+    margin-bottom: 20px;
+  }
+}
+    
+      </style>
+  
+
+   
 
     <div class="site-blocks-cover inner-page-cover" style="background-image: url(images/hero_bg_2.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
         <div class="container">
           <div class="row align-items-center justify-content-center text-center">
 
             <div class="col-md-8" data-aos="fade-up" data-aos-delay="400">
-              <h1 class="text-white font-weight-light">About Travelers</h1>
-              <div><a href="index.html">Home</a> <span class="mx-2 text-white">&bullet;</span> <span class="text-white">About</span></div>
+              <h1 class="text-white font-weight-light">Book Your Pass</h1>
+              <div><a href="index.html">Home</a> <span class="mx-2 text-white">&bullet;</span> <span class="text-white">Payment</span></div>
               
             </div>
           </div>
@@ -81,74 +198,58 @@
 
 
     
-    <div class="site-section" data-aos="fade-up">
-      <div class="container">
-        <div class="row align-items-center">
-          <div class="col-md-6 mb-5 mb-md-0">
-            <img src="images/test.jpg" alt="Image" class="img-fluid rounded">
-          </div>
-          <div class="col-md-6 pl-md-5">
-            <h2 class="font-weight-light text-black mb-4">About Project</h2>
-            <p>The project entitled “Bus Pass System” is developed using HTML and CSS as Front end and PHP as Back end. Bus pass registration is useful for passengers who are facing problems with the current manual work of bus pass registration and renewal. His/her renewal or registration can be done through online transaction. In the manual system the user has to go on particular date and time, if they fail then the renewal cannot be done. This online bus pass system application will help candidates save their time and renewal bus pass without standing in a line for hours. Initially user needs to register with the application by submitting their details through online. The administrator will verify the candidate username and password and renewal are performed. The renewal process is carried by paying the money using the online transaction.
-              </p>
+    <div class="row" style="margin-right: auto; margin-left: auto">
+  <div class="col-75">
+    <div class="container">
+      <form action="invoice.php" method="post">
 
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="site-section">
-      <div class="container">
-         <div class="row justify-content-center mb-5" data-aos="fade-up">
-          <div class="col-md-7">
-            <h2 class="font-weight-light text-black text-center">Our Team</h2>
-          </div>
-        </div>
         <div class="row">
-          <div class="col-md-6 col-lg-4 text-center mb-5" data-aos="fade-up">
-            <img src="images/img_2.jpg" alt="Image" class="img-fluid w-50 rounded-circle mb-4" style="height: 145px">
-            <h2 class="text-black font-weight-light mb-4">Saksham Johri</h2>
-            
-            <p>
-              <a href="https://www.linkedin.com/in/saksham-johri/" class="pl-0 pr-3" target="_blank"><span class="icon-linkedin"></span></a>
-              <a href="https://www.instagram.com/saksham_johri/" class="pl-3 pr-3" target="_blank"><span class="icon-instagram"></span></a>
-              <a href="https://www.facebook.com/saksham.johri.5" class="pl-3 pr-3" target="_blank"><span class="icon-facebook"></span></a>
-            </p>
-          </div>
-          <div class="col-md-6 col-lg-4 text-center mb-5" data-aos="fade-up">
-            <img src="images/img_1.jpg" alt="Image" class="img-fluid w-50 rounded-circle mb-4" style="height: 145px">
-            <h2 class="text-black font-weight-light mb-4">Pranjul Singhal</h2>
-            <p>
-              <a href="https://www.linkedin.com/in/pranjul-singhal-78473115b/" class="pl-0 pr-3" target="_blank"><span class="icon-linkedin"></span></a>
-              <a href="#" class="pl-3 pr-3" target="_blank"><span class="icon-instagram"></span></a>
-              <a href="#" class="pl-3 pr-3" target="_blank"><span class="icon-facebook"></span></a>
-            </p>
-          </div>
-          <div class="col-md-6 col-lg-4 text-center mb-5" data-aos="fade-up">
-            <img src="images/img_3.jpg" alt="Image" class="img-fluid w-50 rounded-circle mb-4" style="height: 145px">
-            <h2 class="text-black font-weight-light mb-4">Aayushi Rai</h2>
-            <p>
-              <a href="https://www.linkedin.com/in/aayushi-rai-512168171/" class="pl-0 pr-3" target="_blank"><span class="icon-linkedin"></span></a>
-              <a href="#" class="pl-3 pr-3" target="_blank"><span class="icon-instagram"></span></a>
-              <a href="#" class="pl-3 pr-3" target="_blank"><span class="icon-facebook"></span></a>
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
+          <div class="col-50">
+            <h3><br>Payment</h3>
+            <label for="fname">Accepted Cards</label>
+            <div class="icon-container">
+              <img src="https://img.icons8.com/ios/50/000000/visa.png">
+              <img src="https://img.icons8.com/cute-clipart/64/000000/mastercard.png">
+              <i class="fa fa-cc-mastercard" style="color:red;"></i>
+              <i class="fa fa-cc-discover" style="color:orange;"></i>
+			  <div>Rs. 
+				<?php
+					$price = mysql_fetch_assoc($result)['price'];
+					$amt = $price * $nod;
+					echo $amt;
+				?>
+			  </div>
+            </div>
+			<input type="hidden" value="<?php echo $lid ?>" name="id">
+			<input type="hidden" value="<?php echo $amt ?>" name="amt">
+            <label for="cname">Name on Card</label>
+            <input type="text" id="cname" name="cardname" value="<?php echo $name; ?>" required>
+            <label for="ccnum">Card number</label>
+            <input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444" required>
 
-    
-
-    <div class="site-section border-top">
-      <div class="container">
-        <div class="row text-center">
-          <div class="col-md-12">
-            <h2 class="mb-5 text-black">Want To Travel With Us?</h2>
-            <p class="mb-0"><a href="book.php" class="btn btn-primary py-3 px-5 text-white">Book Now</a></p>
+            <div class="row">
+              <div class="col-50">
+                <label for="expyear">Exp Year</label>
+                <input type="text" id="expyear" name="expyear" placeholder="YYYY" required>
+              </div>
+                
+                <div class="col-50">
+                <label for="expmonth">Exp Month</label>
+            <input type="text" id="expmonth" name="expmonth" placeholder="MM" required>
+                </div>
+              </div>
+              <label for="cvv">CVV</label>
+                <input type="password" id="cvv" name="cvv" placeholder="***" required>
           </div>
+
         </div>
-      </div>
+        <input type="submit" value="Continue to checkout" class="btn">
+      </form>
     </div>
+  </div>
+
+</div>
+
     
     <footer class="site-footer">
       <div class="container">

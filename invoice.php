@@ -1,3 +1,15 @@
+<?php
+	include('connection.php');
+	if(isset($_POST['id'])){
+		$id = $_POST['id'];
+        $amt = $_POST['amt'];
+		
+        $paid = mysql_query("UPDATE pass SET paid = paid + '$amt' WHERE id = '$id'");
+		
+		$result = mysql_query("select * from pass where id = '$id'");
+		$row = mysql_fetch_array($result);
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -24,6 +36,17 @@
     <link rel="stylesheet" href="css/aos.css">
 
     <link rel="stylesheet" href="css/style.css">
+	
+	<style>
+	@media print {
+	  #printPageButton {
+		display: none;
+	  }
+	  footer{
+		display: none;
+	  }
+	}
+	</style>
     
   </head>
   <body>
@@ -65,51 +88,66 @@
       </div>
       
     </header>
-
-  
-
-   
-
-    <div class="site-blocks-cover inner-page-cover" style="background-image: url(images/hero_bg_2.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
-        <div class="container">
-          <div class="row align-items-center justify-content-center text-center">
-
-            <div class="col-md-8" data-aos="fade-up" data-aos-delay="400">
-              <h1 class="text-white font-weight-light">Get In Touch</h1>
-              <div><a href="index.html">Home</a> <span class="mx-2 text-white">&bullet;</span> <span class="text-white">Contact</span></div>
-              
-            </div>
-          </div>
-        </div>
-      </div>  
-
-
-    
+      
+         
     <div class="site-section bg-light">
       <div class="container">
         <div class="row">
-          <div class="col-md-7 mb-5">
-              
-              <img src="images/gla.jpeg" style="height: inherit; width: inherit">
-
-            
-          </div>
-          <div class="col-md-5">
+          <div class="col-md-12">
             
             <div class="p-4 mb-3 bg-white">
-              <p class="mb-0 font-weight-bold">Address</p>
+                
+              <p class="mb-0 font-weight-bold" style="float: left;">Id &nbsp &nbsp</p>
                 <p class="mb-4">
-                    <a href="https://www.google.com/maps/place/GLA+University/@27.6056887,77.5911358,17z/data=!3m1!4b1!4m5!3m4!1s0x39736ce47bffc039:0xfe5fc3da92c6341!8m2!3d27.6056887!4d77.5933245" target="_blank">
-                    GLA University, NH-2, Mathura-Delhi Highway, Chaumuhan, Mathura- 281406 
-                    </a>
+                    <?php
+						echo $row['id'];
+					?>
+                </p>
+                
+                <p class="mb-0 font-weight-bold" style="float: left;">Name &nbsp &nbsp</p>
+                <p class="mb-4">
+                    <?php
+						echo $row['name'];
+					?>
                 </p>
 
-              <p class="mb-0 font-weight-bold">Phone</p>
-              <p class="mb-4"><a href="#">+91 1234 567890</a></p>
+              <p class="mb-0 font-weight-bold" style="float: left;">Mobile &nbsp &nbsp</p>
+              <p class="mb-4">
+					<?php
+						echo $row['contact'];
+					?>
+                </p>
 
-              <p class="mb-0 font-weight-bold">Email Address</p>
-              <p class="mb-0"><a href="#">youremail@gla.ac.in</a></p>
-
+              <p class="mb-0 font-weight-bold" style="float: left;">Email Address &nbsp &nbsp</p>
+              <p class="mb-4">
+					<?php
+						echo $row['email'];
+					?>
+                </p>
+                
+                <p class="mb-0 font-weight-bold" style="float: left;">Valid Till &nbsp &nbsp</p>
+              <p class="mb-4">
+					<?php
+						echo $row['date'];
+					?>
+                </p>
+                
+                <p class="mb-0 font-weight-bold" style="float: left;">From - To &nbsp &nbsp</p>
+              <p class="mb-4">
+                GLA University - 
+				<?php
+						echo $row['dest'];
+					?>
+                </p>
+                
+                
+                <p class="mb-0 font-weight-bold" style="float: left;">Amount Paid &nbsp &nbsp</p>
+              <p class="mb-4">
+					<?php
+						echo $row['paid'];
+					?>
+                </p>
+<button id="printPageButton" class="btn btn-primary py-1 px-5 text-white" onclick="window.print()">Print Pass</button>
             </div>
             
             </div>
@@ -117,8 +155,7 @@
       </div>
     </div>
 
-    
-    <footer class="site-footer">
+        <footer class="site-footer">
       <div class="container">
         <div class="row">
           <div class="col-lg-4">
@@ -161,6 +198,7 @@
         </div>
       </div>
     </footer>
+    
   </div>
 
   <script src="js/jquery-3.3.1.min.js"></script>

@@ -1,3 +1,8 @@
+<?php
+    include('connection.php');
+    $sql = "select name from destination";
+    $result = mysql_query($sql);
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -66,13 +71,17 @@
       
     </header>
 
+  
+
+   
+
     <div class="site-blocks-cover inner-page-cover" style="background-image: url(images/hero_bg_2.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
         <div class="container">
           <div class="row align-items-center justify-content-center text-center">
 
             <div class="col-md-8" data-aos="fade-up" data-aos-delay="400">
-              <h1 class="text-white font-weight-light">About Travelers</h1>
-              <div><a href="index.html">Home</a> <span class="mx-2 text-white">&bullet;</span> <span class="text-white">About</span></div>
+              <h1 class="text-white font-weight-light">Book Your Pass</h1>
+              <div><a href="index.html">Home</a> <span class="mx-2 text-white">&bullet;</span> <span class="text-white">Pass</span></div>
               
             </div>
           </div>
@@ -81,74 +90,78 @@
 
 
     
-    <div class="site-section" data-aos="fade-up">
+    <div class="site-section bg-light">
       <div class="container">
-        <div class="row align-items-center">
-          <div class="col-md-6 mb-5 mb-md-0">
-            <img src="images/test.jpg" alt="Image" class="img-fluid rounded">
-          </div>
-          <div class="col-md-6 pl-md-5">
-            <h2 class="font-weight-light text-black mb-4">About Project</h2>
-            <p>The project entitled “Bus Pass System” is developed using HTML and CSS as Front end and PHP as Back end. Bus pass registration is useful for passengers who are facing problems with the current manual work of bus pass registration and renewal. His/her renewal or registration can be done through online transaction. In the manual system the user has to go on particular date and time, if they fail then the renewal cannot be done. This online bus pass system application will help candidates save their time and renewal bus pass without standing in a line for hours. Initially user needs to register with the application by submitting their details through online. The administrator will verify the candidate username and password and renewal are performed. The renewal process is carried by paying the money using the online transaction.
-              </p>
+        <div>
+          <div>
+            <form action="billing.php" method="post" class="p-5 bg-white">
+             <div class="row form-group">
+                
+                <div class="col-md-12">
+                  <label class="text-black" for="name">Name</label> 
+                  <input required type="name" name="name" id="name" class="form-control">
+                </div>
+              </div>
 
+              <div class="row form-group">
+                
+                <div class="col-md-12">
+                  <label class="text-black" for="email">Email</label> 
+                  <input required type="email" name="email" id="email" class="form-control">
+                </div>
+              </div>
+
+              <div class="row form-group">
+                
+                <div class="col-md-12">
+                  <label class="text-black" for="Number">Mobile Number</label> 
+                  <input required name="contact" type="phone" id="number" class="form-control">
+                </div>
+              </div>
+
+              <div class="row form-group">
+                
+                <div class="col-md-12">
+                  <label class="text-black" for="Number">Enter your Password</label> 
+                  <input required name="password" type="password" class="form-control">
+                </div>
+              </div>
+
+              <div class="row form-group">
+                
+                <div class="col-md-12">
+                  <label class="text-black" for="Date">Valid Till</label> 
+                  <input required name="date" type="date" id="date" class="form-control">
+                </div>
+              </div>
+                
+                <div class="row form-group">
+                
+                <div class="col-md-12">
+                  <label class="text-black" for="destination">Destination</label> 
+                  <select type="text" id="text" name="dest" class="form-control">
+                      <?php
+                        while($row = mysql_fetch_array($result)){
+                            echo "<option value='" . $row['name'] . "'>" . $row['name'] . "</option>";
+                        }
+                      ?>
+                  </select>
+                </div>
+              </div>
+                
+              <div class="row form-group">
+                <div class="col-md-12">
+                  <input type="submit" value="Proceed To Checkout" class="btn btn-primary py-2 px-4 text-white">
+                </div>
+              </div>
+
+  
+            </form>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="site-section">
-      <div class="container">
-         <div class="row justify-content-center mb-5" data-aos="fade-up">
-          <div class="col-md-7">
-            <h2 class="font-weight-light text-black text-center">Our Team</h2>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-6 col-lg-4 text-center mb-5" data-aos="fade-up">
-            <img src="images/img_2.jpg" alt="Image" class="img-fluid w-50 rounded-circle mb-4" style="height: 145px">
-            <h2 class="text-black font-weight-light mb-4">Saksham Johri</h2>
-            
-            <p>
-              <a href="https://www.linkedin.com/in/saksham-johri/" class="pl-0 pr-3" target="_blank"><span class="icon-linkedin"></span></a>
-              <a href="https://www.instagram.com/saksham_johri/" class="pl-3 pr-3" target="_blank"><span class="icon-instagram"></span></a>
-              <a href="https://www.facebook.com/saksham.johri.5" class="pl-3 pr-3" target="_blank"><span class="icon-facebook"></span></a>
-            </p>
-          </div>
-          <div class="col-md-6 col-lg-4 text-center mb-5" data-aos="fade-up">
-            <img src="images/img_1.jpg" alt="Image" class="img-fluid w-50 rounded-circle mb-4" style="height: 145px">
-            <h2 class="text-black font-weight-light mb-4">Pranjul Singhal</h2>
-            <p>
-              <a href="https://www.linkedin.com/in/pranjul-singhal-78473115b/" class="pl-0 pr-3" target="_blank"><span class="icon-linkedin"></span></a>
-              <a href="#" class="pl-3 pr-3" target="_blank"><span class="icon-instagram"></span></a>
-              <a href="#" class="pl-3 pr-3" target="_blank"><span class="icon-facebook"></span></a>
-            </p>
-          </div>
-          <div class="col-md-6 col-lg-4 text-center mb-5" data-aos="fade-up">
-            <img src="images/img_3.jpg" alt="Image" class="img-fluid w-50 rounded-circle mb-4" style="height: 145px">
-            <h2 class="text-black font-weight-light mb-4">Aayushi Rai</h2>
-            <p>
-              <a href="https://www.linkedin.com/in/aayushi-rai-512168171/" class="pl-0 pr-3" target="_blank"><span class="icon-linkedin"></span></a>
-              <a href="#" class="pl-3 pr-3" target="_blank"><span class="icon-instagram"></span></a>
-              <a href="#" class="pl-3 pr-3" target="_blank"><span class="icon-facebook"></span></a>
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    
-
-    <div class="site-section border-top">
-      <div class="container">
-        <div class="row text-center">
-          <div class="col-md-12">
-            <h2 class="mb-5 text-black">Want To Travel With Us?</h2>
-            <p class="mb-0"><a href="book.php" class="btn btn-primary py-3 px-5 text-white">Book Now</a></p>
-          </div>
-        </div>
-      </div>
-    </div>
     
     <footer class="site-footer">
       <div class="container">
