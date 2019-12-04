@@ -76,6 +76,7 @@
                 <li><a href="about.html">About</a></li>
                 <li><a href="contact.html">Contact</a></li>
                 <li><a href="manage.php">Manage Pass</a></li>
+                  <li><a href="bus_details.html">Bus Details</a></li>
               </ul>
             </nav>
           </div>
